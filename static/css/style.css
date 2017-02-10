@@ -4157,7 +4157,7 @@ img.circle-border {
 }
 
 code {
-    background-color: #F9F2F4;
+    background-color: black;
     border-radius: 4px;
     color: #ca4440;
     font-size: 90%;
@@ -8191,4 +8191,12 @@ body.rtls.top-navigation .footer.fixed {
 
 .rtls #right-sidebar.sidebar-open {
     left: 0
+}
+
+pre {
+    background-color: black !important;
+}
+
+pre code {
+    background-color: black !important;
 }

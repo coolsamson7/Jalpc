@@ -1,29 +1,71 @@
 # careers section data
 # if you don't have language feature(language.yml is empty), ignore "i18n" items
 - name:
-    detail: Company A
-    i18n: company_a
+    detail: Schenker AG
+    i18n:
   desc:
-    detail: I worked at Company A ...
-    i18n: company_a_desc
+    detail:
+    i18n:
   date:
-    detail: Apr. 2016
-    i18n: company_a_date
+    detail: 2013
+    i18n:
   job:
-    detail: CTO
-    i18n: company_a_job
+    detail: Chief Software Architect
+    i18n:
   icon: fa-plus-square
 
 - name:
-    detail: Company B
-    i18n: company_b
+    detail: HRS GmbH
+    i18n:
   desc:
-    detail: I worked at Company B ...
-    i18n: company_b_desc
+    detail:
+    i18n:
   date:
-    detail: Jun. 2015
-    i18n: company_b_date
+    detail: 2010
+    i18n:
   job:
-    detail: Full Stack Developer
-    i18n: company_b_job
+    detail: Chief Technical Architect
+    i18n:
+  icon: fa-plus-square
+
+- name:
+    detail: Capgemini AG ( sd&m )
+    i18n:
+  desc:
+    detail:
+    i18n:
+  date:
+    detail: 2001
+    i18n:
+  job:
+    detail: Principal Consultant
+    i18n:
+  icon: fa-plus-square
+
+- name:
+    detail: QCentic GmbH
+    i18n:
+  desc:
+    detail:
+    i18n:
+  date:
+    detail: 1996
+    i18n:
+  job:
+    detail: Senior Software Engineer
+    i18n:
+  icon: fa-plus-square
+
+- name:
+    detail: COI GmbH
+    i18n:
+  desc:
+    detail:
+    i18n:
+  date:
+    detail: 1993
+    i18n:
+  job:
+    detail: Software Engineer
+    i18n:
   icon: fa-plus-square

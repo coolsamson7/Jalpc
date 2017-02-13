@@ -10,22 +10,24 @@ url: http://coolsamson7.github.io/
 img_path: /static/assets/img/blog  # url should be changed to '/homepage/static/assets/img/blog' as before
 
 # author -- index page "about me" section
-author:  # change following line to your infomation.
+author:  # change following line to your information.
   name: AndreasErnst  # Be used at blog posts' author.
   first_name: Andreas  # Be used at index page about me section.
   last_name: Ernst  # Be used at index page about me section.
-  cv: # A online CV can be printed as PDF, leave blank if you don't have now  http://cv.jack003.com
+  cv: # A online CV can be printed as PDF, leave blank if you don't have now
   email: andreas.ernst7@gmail.com  # Leave blank if you don't have now
   facebook_username: andreas.ernst.1806  # Leave blank if you don't have now
   github_username: coolsamson7  # Leave blank if you don't have now
-  avatar: /static/assets/img/landing/andreas1.jpg  # upload your avatar at directory and edit it.
+  avatar: /static/assets/img/landing/andreas.jpg  # upload your avatar at directory and edit it.
   skill_icon1:
     - name: icon-apache
     - name: fa-linux
   skill_icon2:
     - name: fa-linux
     - name: icon-apache
-  desc: That's me!. YUp
+  desc: >
+     Veteran software engineer with vast technical background <br>
+     as well as leadership qualities as a department head.
 
 # comment
 #disqus:  # if you wanna comment feature, go to https://disqus.com/ to get your configuration; if not, comment following two lines.

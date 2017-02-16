@@ -28,7 +28,7 @@ On the other hand, enhancements have been made, that  will allow for better codi
 The language itself - typescript - well....Not a big deal. I guess, they missed the opportunity the deliver a real step forward.
 
 Libaries and tooling
- ---
+---
  
 This is still far from acceptable. Even the simplest ui libraries are still evolving - e.g. bootstrap ui or material - leaving programmers with looking up for solutions in the web.
 

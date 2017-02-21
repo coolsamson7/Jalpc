@@ -22,8 +22,12 @@
 
         // set variables
 
+        var labels = opts.tags;
+        var ntags = opts.tags.length;
+
         var max      = opts.max;
         var duration = opts.duration;
+        var ttl      = duration;
         var interval = opts.interval; // ms
         var paper    = $(this)[0];
 
@@ -39,11 +43,18 @@
 
         // create tags
 
+        var nextIndex = 0;
         var tags = [];
 
         function setup() {
             var len = opts.tags.length;
+            if (len > max) {
+                ttl = duration * max / len;
+                len = max;
+                nextIndex = max;
+            } // if
 
+            var time = now();
             for (var i = 0; i < len; i++) {
                 var label = opts.tags[i];
 
@@ -64,7 +75,7 @@
 
                 // create wrapper class
 
-                var t = new tag(anchor, x, y, z);
+                var t = new tag(anchor, x, y, z, time + ttl);
 
                 // remember
 
@@ -114,13 +125,13 @@
 
         // the tag class
 
-        var tag = function (ele, x, y, z) {
+        var tag = function (ele, x, y, z, ttl) {
             this.ele = ele; // the anchor
 
             this.x = x;
             this.y = y;
             this.z = z;
-            this.ttl = 0;
+            this.ttl = ttl;
 
             return this;
         };
@@ -141,6 +152,18 @@
             },
 
             move: function (now) {
+                // exchange text?
+
+                if (now >= this.ttl) {
+                    // set next ttl
+
+                    this.ttl = now + ttl;
+
+                    $(this.ele).text(labels[nextIndex]);
+
+                    nextIndex = (nextIndex + 1) % ntags;
+                } // if
+
                 var scale = fallLength / (fallLength - this.z);
                 var alpha = ((this.z + RADIUS) / (2 * RADIUS)) + 0.5;
 

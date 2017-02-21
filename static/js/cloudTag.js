@@ -1,23 +1,19 @@
 (function ($) {
     $.fn.cloudTag = function (options) {
         var defaults = {
-            tag: "tag",
             ballSize: 200,
             max: 3,
+            interval: 50, // ms
+            duration: 3 * 1000, // 3s
             tags: ['a', 'b', 'c']
         };
 
-        if (! Array.prototype.forEach)
-            Array.prototype.forEach = function (callback) {
-                for (var i = 0; i < this.length; i++)
-                    callback.call(this[i]);
-            };
-
-        //<a class="tag">PHP</a>
+        // fetch options
 
         var opts = $.extend({}, defaults, options);
 
-        var interval = 50; // ms
+        var duration = opts.duration;
+        var interval = opts.interval; // ms
         var paper = $(this)[0];
 
         var RADIUS = opts.ballSize;
@@ -35,6 +31,7 @@
         var tags = [];
 
         function setup() {
+            console.log("setup");
             var len = opts.tags.length;
 
             for (var i = 0; i < len; i++) {
@@ -50,12 +47,15 @@
 
                 // create anchor
 
-                var anchor = $('<a>' + label + '</a>');
+                var anchor = document.createElement('a');
+                $(anchor).addClass('tag').html(label).appendTo(paper);
+
+                if (!anchor.style )
+                    anchor.style = {};
+
                 anchor.style.color = "rgb(" + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + ")"; // set random color
 
-                paper.append(anchor);
-
-                // create wapper class
+                // create wrapper class
 
                 var t = new tag(anchor, x, y, z);
 
@@ -69,27 +69,50 @@
             } // for
         }
 
-        function animate() {
-            setInterval(function () {
-                rotateX();
-                rotateY();
+        // timer stuff
 
-                tags.forEach(function () {
-                    this.move();
-                });
-            }, interval);
+        function now() {
+            return new Date().getTime();
+        }
+
+        var timer = undefined;
+        var startTime;
+
+        function animate() {
+            if (timer === undefined) {
+                startTime = now();
+                timer = setInterval(function () {
+                    // check duration
+
+                    if (now() - startTime >= duration) {
+                        clearInterval(timer);
+                        timer = undefined;
+                    } // if
+
+                    // rotate
+
+                    rotateX();
+                    rotateY();
+
+                    // move tags
+
+                    tags.forEach(function (tag) {
+                        tag.move();
+                    });
+                }, interval);
+            } // if
         }
 
         function rotateX() {
             var cos = Math.cos(angleX);
             var sin = Math.sin(angleX);
 
-            tags.forEach(function () {
-                var y1 = this.y * cos - this.z * sin;
-                var z1 = this.z * cos + this.y * sin;
+            tags.forEach(function (tag) {
+                var y1 = tag.y * cos - tag.z * sin;
+                var z1 = tag.z * cos + tag.y * sin;
 
-                this.y = y1;
-                this.z = z1;
+                tag.y = y1;
+                tag.z = z1;
             });
         }
 
@@ -97,12 +120,12 @@
             var cos = Math.cos(angleY);
             var sin = Math.sin(angleY);
 
-            tags.forEach(function () {
-                var x1 = this.x * cos - this.z * sin;
-                var z1 = this.z * cos + this.x * sin;
+            tags.forEach(function (tag) {
+                var x1 = tag.x * cos - tag.z * sin;
+                var z1 = tag.z * cos + tag.x * sin;
 
-                this.x = x1;
-                this.z = z1;
+                tag.x = x1;
+                tag.z = z1;
             });
         }
 
@@ -114,6 +137,8 @@
             this.x = x;
             this.y = y;
             this.z = z;
+
+            return this;
         };
 
         tag.prototype = {
@@ -132,26 +157,24 @@
             }
         };
 
+        // callback
+
+        function onMouseMove(event) {
+            var x = event.clientX - EX - CX;
+            var y = event.clientY - EY - CY;
+
+            angleY = x * 0.0001;
+            angleX = y * 0.0001;
+
+            animate(); // restart timer if required
+        }
+
         // add event listener
 
-        if ("addEventListener" in window) {
-            paper.addEventListener("mousemove", function (event) {
-                var x = event.clientX - EX - CX;
-                var y = event.clientY - EY - CY;
-
-                angleY = x * 0.0001;
-                angleX = y * 0.0001;
-            });
-        }
-        else {
-            paper.attachEvent("onmousemove", function (event) {
-                var x = event.clientX - EX - CX;
-                var y = event.clientY - EY - CY;
-
-                angleY = x * 0.0001;
-                angleX = y * 0.0001;
-            });
-        }
+        if ("addEventListener" in window)
+            paper.addEventListener("mousemove", onMouseMove);
+        else
+            paper.attachEvent("onmousemove", onMouseMove);
 
         // get goin'
 

@@ -5,7 +5,7 @@
             max: 3,
             interval: 50, // ms
             duration: 3 * 1000, // 3s
-            tags: ['a', 'b', 'c']
+            tags: []
         };
 
         // fetch options
@@ -50,9 +50,6 @@
                 var anchor = document.createElement('a');
                 $(anchor).addClass('tag').html(label).appendTo(paper);
 
-                if (!anchor.style )
-                    anchor.style = {};
-
                 anchor.style.color = "rgb(" + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + ")"; // set random color
 
                 // create wrapper class
@@ -89,44 +86,21 @@
                         timer = undefined;
                     } // if
 
-                    // rotate
-
-                    rotateX();
-                    rotateY();
-
                     // move tags
 
+                    var cosX = Math.cos(angleX);
+                    var sinX = Math.sin(angleX);
+                    var cosY = Math.cos(angleY);
+                    var sinY = Math.sin(angleY);
+
                     tags.forEach(function (tag) {
-                        tag.move();
+                        tag
+                            .rotateX(cosX, sinX)
+                            .rotateY(cosY, sinY)
+                            .move();
                     });
                 }, interval);
             } // if
-        }
-
-        function rotateX() {
-            var cos = Math.cos(angleX);
-            var sin = Math.sin(angleX);
-
-            tags.forEach(function (tag) {
-                var y1 = tag.y * cos - tag.z * sin;
-                var z1 = tag.z * cos + tag.y * sin;
-
-                tag.y = y1;
-                tag.z = z1;
-            });
-        }
-
-        function rotateY() {
-            var cos = Math.cos(angleY);
-            var sin = Math.sin(angleY);
-
-            tags.forEach(function (tag) {
-                var x1 = tag.x * cos - tag.z * sin;
-                var z1 = tag.z * cos + tag.x * sin;
-
-                tag.x = x1;
-                tag.z = z1;
-            });
         }
 
         // the tag class
@@ -142,6 +116,20 @@
         };
 
         tag.prototype = {
+            rotateX: function (cos, sin) {
+                this.y = this.y * cos - this.z * sin;
+                this.z = this.z * cos + this.y * sin;
+
+                return this;
+            },
+
+            rotateY: function (cos, sin) {
+                this.x = this.x * cos - this.z * sin;
+                this.z = this.z * cos + this.x * sin;
+
+                return this;
+            },
+
             move: function () {
                 var scale = fallLength / (fallLength - this.z);
                 var alpha = ((this.z + RADIUS) / (2 * RADIUS)) + 0.5;
@@ -154,6 +142,8 @@
                 style.zIndex = parseInt(scale * 100);
                 style.left = this.x + CX - this.ele.offsetWidth / 2 + "px";
                 style.top = this.y + CY - this.ele.offsetHeight / 2 + "px";
+
+                return this;
             }
         };
 

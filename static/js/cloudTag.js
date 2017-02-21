@@ -1,5 +1,13 @@
 (function ($) {
     $.fn.cloudTag = function (options) {
+        // helper functions
+
+        function now() {
+            return new Date().getTime();
+        }
+
+        // defaults
+
         var defaults = {
             ballSize: 200,
             max: 3,
@@ -8,30 +16,32 @@
             tags: []
         };
 
-        // fetch options
+        // compute options
 
         var opts = $.extend({}, defaults, options);
 
+        // set variables
+
+        var max      = opts.max;
         var duration = opts.duration;
         var interval = opts.interval; // ms
-        var paper = $(this)[0];
+        var paper    = $(this)[0];
 
-        var RADIUS = opts.ballSize;
+        var RADIUS   = opts.ballSize;
         var fallLength = 300;
-        var angleX = Math.PI / fallLength;
-        var angleY = Math.PI / fallLength;
+        var angleX   = Math.PI / fallLength;
+        var angleY   = Math.PI / fallLength;
 
-        var CX = paper.offsetWidth / 2;
-        var CY = paper.offsetHeight / 2;
-        var EX = paper.offsetLeft + document.body.scrollLeft + document.documentElement.scrollLeft;
-        var EY = paper.offsetTop + document.body.scrollTop + document.documentElement.scrollTop;
+        var CX       = paper.offsetWidth / 2;
+        var CY       = paper.offsetHeight / 2;
+        var EX       = paper.offsetLeft + document.body.scrollLeft + document.documentElement.scrollLeft;
+        var EY       = paper.offsetTop + document.body.scrollTop + document.documentElement.scrollTop;
 
         // create tags
 
         var tags = [];
 
         function setup() {
-            console.log("setup");
             var len = opts.tags.length;
 
             for (var i = 0; i < len; i++) {
@@ -60,7 +70,7 @@
 
                 tags.push(t);
 
-                // and position
+                // and set initial position
 
                 t.move();
             } // for
@@ -68,9 +78,6 @@
 
         // timer stuff
 
-        function now() {
-            return new Date().getTime();
-        }
 
         var timer = undefined;
         var startTime;
@@ -79,9 +86,11 @@
             if (timer === undefined) {
                 startTime = now();
                 timer = setInterval(function () {
+                    var time = now();
+
                     // check duration
 
-                    if (now() - startTime >= duration) {
+                    if (time - startTime >= duration) {
                         clearInterval(timer);
                         timer = undefined;
                     } // if
@@ -97,7 +106,7 @@
                         tag
                             .rotateX(cosX, sinX)
                             .rotateY(cosY, sinY)
-                            .move();
+                            .move(time);
                     });
                 }, interval);
             } // if
@@ -111,6 +120,7 @@
             this.x = x;
             this.y = y;
             this.z = z;
+            this.ttl = 0;
 
             return this;
         };
@@ -130,7 +140,7 @@
                 return this;
             },
 
-            move: function () {
+            move: function (now) {
                 var scale = fallLength / (fallLength - this.z);
                 var alpha = ((this.z + RADIUS) / (2 * RADIUS)) + 0.5;
 

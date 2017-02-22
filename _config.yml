@@ -18,7 +18,7 @@ author:  # change following line to your information.
   email: andreas.ernst7@gmail.com  # Leave blank if you don't have now
   facebook_username: andreas.ernst.1806  # Leave blank if you don't have now
   github_username: coolsamson7  # Leave blank if you don't have now
-  avatar: /static/assets/img/landing/andreas.jpg  # upload your avatar at directory and edit it.
+  avatar: /static/assets/img/landing/ernst-1-200.jpg  # upload your avatar at directory and edit it.
   skill_icon1:
     - name: icon-apache
     - name: fa-linux

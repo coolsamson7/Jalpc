@@ -19,7 +19,7 @@
         <!-- avatar -->
         <div class="col-xs-4">
             <div class="team-member wow zoomIn">
-                <img src="{{ site.author.avatar | prepend: site.baseurl }}" height="110" width="110" class="img-responsive img-circle" alt="">
+                <img src="{{ site.author.avatar | prepend: site.baseurl }}" height="200" xwidth="110" class="img-responsive img-circle" alt="">
                 <h4><span class="navy">{{ site.author.first_name }}</span> {{ site.author.last_name }}</h4>
                 <ul class="list-inline social-icon">
                     <li>
@@ -42,10 +42,10 @@
 
         <!-- little image animation -->
 
-        <!--script>
-            var images = ["andreas", "andreas1"];
-            var interval = 3000; // 3s interval
-            var fade = 300;
+        <script>
+            var images = ["ernst-1-200", "ernst-2-200"];
+            var interval = 10000; // 10s interval
+            var fade = 700;
 
             var len = images.length;
 
@@ -69,7 +69,7 @@
                     img.attr('src', src).fadeIn(fade);
                 });
             }, interval);
-        </script-->
+        </script>
 
         <!-- second two icons -->
 

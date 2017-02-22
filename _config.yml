@@ -2,7 +2,7 @@
 
 # Website settings
 title: Home
-description: Andreas main github page.
+description: Homepage Andreas Ernst
 keywords: Andreas Ernst
 baseurl:  # if you have suburl as homepage like '/homepage', please change it to '/homepage'
 url: http://coolsamson7.github.io/
@@ -11,7 +11,7 @@ img_path: /static/assets/img/blog  # url should be changed to '/homepage/static/
 
 # author -- index page "about me" section
 author:  # change following line to your information.
-  name: AndreasErnst  # Be used at blog posts' author.
+  name: Andreas Ernst  # Be used at blog posts' author.
   first_name: Andreas  # Be used at index page about me section.
   last_name: Ernst  # Be used at index page about me section.
   cv: # A online CV can be printed as PDF, leave blank if you don't have now

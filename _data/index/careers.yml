@@ -1,10 +1,20 @@
 # careers section data
 # if you don't have language feature(language.yml is empty), ignore "i18n" items
 - name:
-    detail: Schenker AG
+    detail: >
+      Schenker AG
     i18n:
   desc:
-    detail:
+    detail: >
+      <ul>
+      <li>New Schenker b2b customer portal</li>
+      <li>Setup of a  new "software factory" department</li>
+      <li>Standardization efforts in the area of requirements engineering, specification, construction, implementation and test</li>
+      <li>Masterdata Management Project</li>
+      <li>AWS based CI environments</li>
+      <li>Definition of standard architecture for new AWS based projects</li>
+      <li>Various consulting activities</li>
+      </ul>
     i18n:
   date:
     detail: 2013
@@ -18,7 +28,19 @@
     detail: HRS GmbH
     i18n:
   desc:
-    detail:
+    detail: >
+      <ul>
+      <li>Definition and implementation of a complete new state of the art technology stack for backend and frontend development</li>
+      <li>Migration of all core systems</li>
+      <li>Evaluation and integration of "new" technologies such as
+         <ul>
+         <li>Data Mining for recommendation engines</li>
+         <li>Data Mining for analysis of hotel reviews </li>
+         </ul>
+      </li>
+      <li>Virtualization of project environments</li>
+      <li>Head of "technology management"</li>
+      </ul>
     i18n:
   date:
     detail: 2010
@@ -32,7 +54,16 @@
     detail: Capgemini AG ( sd&m )
     i18n:
   desc:
-    detail:
+    detail: >
+      <ul>
+      <li>Enterprise Architect for all Schenker projects ( FASS, Tango, RCM, MDM )</li>
+      <li>Technical Chief Architect for Transport Management System "Tango" ( staff up to 150 persons)</li>
+      <li>Head of "Tecbase" department</li>
+      <li>Technical Project Lead Deutsche Post "Order Management"</li>
+      <li>Member "Architecture Board"</li>
+      <li>Various Consulting Activities</li>
+      <li>Head architect for corporate Java/.NET application framework "Quasar".</li>
+      </ul>
     i18n:
   date:
     detail: 2001
@@ -46,7 +77,13 @@
     detail: QCentic GmbH
     i18n:
   desc:
-    detail:
+    detail: >
+      <ul>
+      <li>Head architect "system development"</li>
+      <li>Compiler and Interpreter ( JIT ) for object oriented functional language</li>
+      <li>Runtime libraries ( rpc, concurrency, ui, ...)</li>
+      <li>Integrated development environment</li>
+      </ul>
     i18n:
   date:
     detail: 1996
@@ -60,7 +97,12 @@
     detail: COI GmbH
     i18n:
   desc:
-    detail:
+    detail: >
+      <ul>
+      <li>Document and Workflow Management System</li>
+      <li>Object Oriented Graphical Editor Framework</li>
+      <li>Core runtime libraries for proprietary functional language</li>
+      </ul>
     i18n:
   date:
     detail: 1993

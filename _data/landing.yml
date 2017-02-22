@@ -12,6 +12,11 @@
   tpl: career.html
   css: timeline
 
+- id: technology
+  i18n: nav.technology
+  name: Technology
+  tpl: technology.html
+  css: technology
 
 - id: projects
   i18n: nav.projects

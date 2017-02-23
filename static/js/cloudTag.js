@@ -41,6 +41,12 @@
         var EX       = paper.offsetLeft + document.body.scrollLeft + document.documentElement.scrollLeft;
         var EY       = paper.offsetTop + document.body.scrollTop + document.documentElement.scrollTop;
 
+        function nextTTL(time) {
+            var ttl2 = ttl / 2;
+
+            return time + ttl2 + Math.random() * ttl2;
+        }
+
         // create tags
 
         var nextIndex = 0;
@@ -75,7 +81,7 @@
 
                 // create wrapper class
 
-                var t = new tag(anchor, x, y, z, time + ttl);
+                var t = new tag(anchor, x, y, z, nextTTL(time));
 
                 // remember
 
@@ -90,36 +96,49 @@
         // timer stuff
 
 
-        var timer = undefined;
-        var startTime;
+        var animating = false;
+        var start = null;
 
-        function animate() {
-            if (timer === undefined) {
-                startTime = now();
-                timer = setInterval(function () {
-                    var time = now();
+        function animate(timestamp) {
+            if (!start)
+                start = timestamp;
 
-                    // check duration
+            var progress = timestamp - start;
 
-                    if (time - startTime >= duration) {
-                        clearInterval(timer);
-                        timer = undefined;
-                    } // if
+            // check duration
 
-                    // move tags
+            if (progress < duration) {
+                // move tags
 
-                    var cosX = Math.cos(angleX);
-                    var sinX = Math.sin(angleX);
-                    var cosY = Math.cos(angleY);
-                    var sinY = Math.sin(angleY);
+                var cosX = Math.cos(angleX);
+                var sinX = Math.sin(angleX);
+                var cosY = Math.cos(angleY);
+                var sinY = Math.sin(angleY);
 
-                    tags.forEach(function (tag) {
-                        tag
-                            .rotateX(cosX, sinX)
-                            .rotateY(cosY, sinY)
-                            .move(time);
-                    });
-                }, interval);
+                var t = now(); // hmmm
+
+                tags.forEach(function (tag) {
+                    tag
+                        .rotateX(cosX, sinX)
+                        .rotateY(cosY, sinY)
+                        .move(t);
+                });
+
+                // continue
+
+                requestAnimationFrame(animate);
+            }
+            else {
+                animating = false;
+                start = null;
+            } // else
+        }
+
+        function checkAnimation() {
+            if (!animating) {
+                animating = true;
+
+                requestAnimationFrame(animate);
             } // if
         }
 
@@ -157,7 +176,7 @@
                 if (now >= this.ttl) {
                     // set next ttl
 
-                    this.ttl = now + ttl;
+                    this.ttl = nextTTL(now);
 
                     $(this.ele).text(labels[nextIndex]);
 
@@ -189,7 +208,7 @@
             angleY = x * 0.0001;
             angleX = y * 0.0001;
 
-            animate(); // restart timer if required
+            checkAnimation();
         }
 
         // add event listener
@@ -202,6 +221,7 @@
         // get goin'
 
         setup();
-        animate();
+
+        checkAnimation();
     }
 })(jQuery);

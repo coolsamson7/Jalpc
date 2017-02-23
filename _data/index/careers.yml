@@ -10,7 +10,7 @@
       <li>New Schenker b2b customer portal</li>
       <li>Setup of a  new "software factory" department</li>
       <li>Standardization efforts in the area of requirements engineering, specification, construction, implementation and test</li>
-      <li>Masterdata Management Project</li>
+      <li>Masterdata Management project</li>
       <li>AWS based CI environments</li>
       <li>Definition of standard architecture for new AWS based projects</li>
       <li>Various consulting activities</li>
@@ -35,7 +35,7 @@
       <li>Evaluation and integration of "new" technologies such as
          <ul>
          <li>Data Mining for recommendation engines</li>
-         <li>Data Mining for analysis of hotel reviews </li>
+         <li>Data Mining for analysis of hotel reviews</li>
          </ul>
       </li>
       <li>Virtualization of project environments</li>
@@ -62,7 +62,7 @@
       <li>Technical Project Lead Deutsche Post "Order Management"</li>
       <li>Member "Architecture Board"</li>
       <li>Various Consulting Activities</li>
-      <li>Head architect for corporate Java/.NET application framework "Quasar".</li>
+      <li>Head architect of corporate Java/.NET application framework "Quasar".</li>
       </ul>
     i18n:
   date:
@@ -80,7 +80,7 @@
     detail: >
       <ul>
       <li>Head architect "system development"</li>
-      <li>Compiler and Interpreter ( JIT ) for object oriented functional language</li>
+      <li>Compiler and interpreter ( JIT ) for object oriented functional language</li>
       <li>Runtime libraries ( rpc, concurrency, ui, ...)</li>
       <li>Integrated development environment</li>
       </ul>
@@ -99,7 +99,7 @@
   desc:
     detail: >
       <ul>
-      <li>Document and Workflow Management System</li>
+      <li>Core contributions to a document and workflow management system</li>
       <li>Object Oriented Graphical Editor Framework</li>
       <li>Core runtime libraries for proprietary functional language</li>
       </ul>

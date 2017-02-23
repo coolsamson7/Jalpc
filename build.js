@@ -1,17 +1,20 @@
 var UglifyJS = require('uglify-js');
 var CleanCSS = require('clean-css');
+var fs       = require('fs');
+
 require('shelljs/global');
-var fs = require('fs');
 require('colors');
 
 nowDate = new Date();
 nowDateStr = nowDate.toISOString().slice(0,10).replace(/-/g,"");
 
 // remove preceding compressed files
+
 rm('-rf', 'static/assets/*.min.js');
 rm('-rf', 'static/assets/*.min.css');
 
 // change link/src files to new file path
+
 sed_exp = 's/(.*)[0-9]{8}(.*)/\1' + nowDateStr + '\2/';
 sed('-i', /(.*)[0-9]{8}(.*)/, '$1' + nowDateStr + '$2', '_includes/index_head.html');
 sed('-i', /(.*)[0-9]{8}(.*)/, '$1' + nowDateStr + '$2', '_includes/head.html');
@@ -20,7 +23,7 @@ sed('-i', /(.*)[0-9]{8}(.*)/, '$1' + nowDateStr + '$2', '404.html');
 
 // compress js files function
 function compressjs(filename, filelist){
-	console.log('Now compress index page js files to ' + filename + ' ...')
+	console.log('Now compress index page js files to ' + filename + ' ...');
 	var result = UglifyJS.minify(filelist, {
 		mangle: true,
 		compress: {
@@ -32,16 +35,18 @@ function compressjs(filename, filelist){
 			if_return: true,
 			join_vars: true,
 			drop_console: true
-		},
+		}
 	});
 
 	fs.writeFileSync('static/assets/' + filename, result.code);
+
 	console.log("Index page js files compress succeed. You can find it at \"static/assets\".\n".green);
 }
 
 // compress css files function
 function compresscss(filename, filelist) {
-	console.log('Now compress other pages css files to ' + filename + ' ...')
+	console.log('Now compress other pages css files to ' + filename + ' ...');
+
 	var result = new CleanCSS().minify(filelist);
 	var output = new CleanCSS({
 	  	level: {
@@ -68,33 +73,34 @@ function compresscss(filename, filelist) {
 	}).minify(result.styles);
 
 	fs.writeFileSync('static/assets/' + filename, output.styles);
+
 	console.log("Blog page css files compress succeed. You can find it at \"static/assets\".\n".green);
 }
 
 // compress js files of 404 page
-fofJsFilename = 'fof-' + nowDateStr + '.min.js'
+fofJsFilename = 'fof-' + nowDateStr + '.min.js';
 fofJsFileList = [
 	'node_modules/jquery/dist/jquery.js',
 	'node_modules/bootstrap/dist/js/bootstrap.js',
 	'node_modules/pace-progress/pace.js'
-	]
-compressjs(fofJsFilename, fofJsFileList)
+	];
+compressjs(fofJsFilename, fofJsFileList);
 
 
 // compress css files of 404 page
-fofCSSFilename = 'fof-' + nowDateStr + '.min.css'
+fofCSSFilename = 'fof-' + nowDateStr + '.min.css';
 fofCSSFilelist = [
 	'node_modules/normalize.css/normalize.css',
 	'node_modules/bootstrap/dist/css/bootstrap.css',
 	'node_modules/components-font-awesome/css/font-awesome.css',
 	'node_modules/animate.css/animate.css',
 	'static/css/style.css'
-	]
-compresscss(fofCSSFilename, fofCSSFilelist)
+	];
+compresscss(fofCSSFilename, fofCSSFilelist);
 
 
 // compress js files of index page
-indexJsFilename = 'app-index-' + nowDateStr + '.min.js'
+indexJsFilename = 'app-index-' + nowDateStr + '.min.js';
 indexJsFileList = [
 	'node_modules/jquery/dist/jquery.js',
 	'node_modules/bootstrap/dist/js/bootstrap.js',
@@ -102,19 +108,18 @@ indexJsFileList = [
 	'node_modules/pace-progress/pace.js',
 	'node_modules/wowjs/dist/wow.js',
 	'static/js/scroll.js',
-	'static/js/count.js',
     'static/js/cloudTag.js'
-	]
-compressjs(indexJsFilename, indexJsFileList)
+	];
+compressjs(indexJsFilename, indexJsFileList);
 
 
 // compress i18next js files
-i18JsFilename = 'i18-' + nowDateStr + '.min.js'
-i18JsFileList = ['static/js/i18next.min.js', 'static/js/localization.js']
-compressjs(i18JsFilename, i18JsFileList)
+i18JsFilename = 'i18-' + nowDateStr + '.min.js';
+i18JsFileList = ['static/js/i18next.min.js', 'static/js/localization.js'];
+compressjs(i18JsFilename, i18JsFileList);
 
 // compress css files of index page
-indexCSSFilename = 'app-index-' + nowDateStr + '.min.css'
+indexCSSFilename = 'app-index-' + nowDateStr + '.min.css';
 indexCSSFilelist = [
 	'node_modules/normalize.css/normalize.css',
 	'node_modules/bootstrap/dist/css/bootstrap.css',
@@ -122,12 +127,12 @@ indexCSSFilelist = [
 	'node_modules/components-font-awesome/css/font-awesome.css',
 	'node_modules/font-mfizz/dist/font-mfizz.css',
 	'static/css/style.css'
-	]
-compresscss(indexCSSFilename, indexCSSFilelist)
+	];
+compresscss(indexCSSFilename, indexCSSFilelist);
 
 
 // compress js file of other pages
-blogJsFilename = 'app-' + nowDateStr + '.min.js'
+blogJsFilename = 'app-' + nowDateStr + '.min.js';
 blogJsFilelist = [
 	'node_modules/jquery/dist/jquery.js',
 	'search/js/bootstrap3-typeahead.min.js',
@@ -137,23 +142,22 @@ blogJsFilelist = [
 	'node_modules/peity/jquery.peity.js',
 	'node_modules/pace-progress/pace.js',
 	'node_modules/wowjs/dist/wow.js',
-	'static/js/scroll.js',
-	'static/js/count.js'
-	],
-compressjs(blogJsFilename, blogJsFilelist)
+	'static/js/scroll.js'
+	];
+compressjs(blogJsFilename, blogJsFilelist);
 
 
 // compress jPage js files
-jPageJsFilename = 'jPage-' + nowDateStr + '.min.js'
+jPageJsFilename = 'jPage-' + nowDateStr + '.min.js';
 jPageJsFilelist = [
 	'static/js/jPages.js',
 	'static/js/js.js'
-	]
-compressjs(jPageJsFilename, jPageJsFilelist)
+	];
+compressjs(jPageJsFilename, jPageJsFilelist);
 
 
 // compress css files of index page
-blogCSSFilename = 'app-' + nowDateStr + '.min.css'
+blogCSSFilename = 'app-' + nowDateStr + '.min.css';
 blogCSSFilelist = [
 	'node_modules/normalize.css/normalize.css',
 	'node_modules/bootstrap/dist/css/bootstrap.css',
@@ -164,5 +168,5 @@ blogCSSFilelist = [
 	'search/css/cb-search.css',
 	'static/css/pygments.css',
 	'static/css/style.css'
-	]
-compresscss(blogCSSFilename, blogCSSFilelist)
+	];
+compresscss(blogCSSFilename, blogCSSFilelist);
